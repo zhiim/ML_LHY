@@ -1,19 +1,21 @@
 from torch.utils.data import DataLoader
 import numpy as np
+import gc
 from utils import *
 
 # load data
 data = np.load('dataset/train_11.npy')  # load training data
-# print(train.shape)  # (1229932, 429)
+print('size of dataset from train_11.npy: {}'.format(data.shape))  # (1229932, 429)
 
 label = np.load('dataset/train_label_11.npy')  # load labels
-# print(train_label.shape)  # (1229932,)
+print('size of dataset from train_label_11.npy: {}'.format(label.shape))  # (1229932,)
 
 device = get_device()
+print('your device: {}'.format(device))
 
 # parameters for training
 config = {
-    'num_epochs': 1000,
+    'num_epochs': 10,
     'batch_size': 270,
     'optimizer': 'SGD',  # optimizer algorithm
     'optim_hparas': {
@@ -33,8 +35,10 @@ train_loader = DataLoader(dataset=train_set, batch_size=config['batch_size'], sh
 val_set = VoiceDataset(val_data, val_label)
 val_loader = DataLoader(dataset=val_set, batch_size=config['batch_size'], shuffle=False)
 
-model = NeuralNet(429, 38).to(device)  # create network
+# delete the data loaded to save space
+del data, label, train_data, train_label, val_data, val_label
+gc.collect()
 
-loss_record = train(train_loader, val_loader, model, config, device)
+model = NeuralNet(429, 39).to(device)  # create network
 
-
+min_mse, loss_record = train(train_loader, val_loader, model, config, device)

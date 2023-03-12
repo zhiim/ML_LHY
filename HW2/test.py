@@ -1,4 +1,11 @@
-import numpy as np
+# test for the tarined paramaters for voice frame classification
 
-train = np.load('dataset/train_11.npy')  # load training data
-print(train.shape[1])  # (1229932, 429)
+import numpy as np
+from utils import *
+
+test = np.load('dataset/test_11.npy')  # load test data
+print("shape of test dataset: {}",format(test.shape[1]))  # (1229932,)
+
+
+
+

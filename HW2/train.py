@@ -1,7 +1,17 @@
+# train the network for voice frame classification
+
 from torch.utils.data import DataLoader
 import numpy as np
 import gc
 from utils import *
+
+myseed = 42069  # set a random seed for reproducibility
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+np.random.seed(myseed)
+torch.manual_seed(myseed)
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(myseed)
 
 # load data
 data = np.load('dataset/train_11.npy')  # load training data
@@ -16,14 +26,13 @@ print('your device: {}'.format(device))
 # parameters for training
 config = {
     'num_epochs': 10,
-    'batch_size': 270,
-    'optimizer': 'SGD',  # optimizer algorithm
+    'batch_size': 60,
+    'optimizer': 'Adam',  # optimizer algorithm
     'optim_hparas': {
-        'lr': 0.001,  # learning rate
-        'momentum': 0.9  # momentum for SGD
+        'lr': 0.001  # learning rate
     },
     'save_path': 'models/model.pth',
-    'early_stop': 200
+    'early_stop': 20
 }
 
 # split data for training and validation

@@ -237,9 +237,10 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
-# ignore dataset for ML (usually in .npy formate)
-*.npy
-*.csv
+# ignore dataset, exported model and test result for ML
+dataset/
+model/
+test_result/
 
 # ignore vscode workplace files
 *.code-workspace

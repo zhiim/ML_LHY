@@ -149,6 +149,7 @@ def train(tr_set, dv_set, model, config, device):
     loss_record = {'train': [], 'val': []}
     acc_record = {'train': [], 'val': []}
     
+    print("start training")
     # epochs for trianing
     for epoch in range(num_epochs):
         train_acc = 0
@@ -174,7 +175,7 @@ def train(tr_set, dv_set, model, config, device):
             loss_record['train'].append(loss.detach().cpu().item())
 
             # print training status every 100 optimisations
-            if (i+1) % 1000 == 0:
+            if (i+1) % 10 == 0:
                 print('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}' 
                    .format(epoch+1, num_epochs, i+1, len(tr_set), loss.item()))
 

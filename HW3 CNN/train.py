@@ -1,7 +1,6 @@
 # train the network for voice frame classification
 
 from torch.utils.data import DataLoader
-import numpy as np
 import gc
 from utils import *
 
